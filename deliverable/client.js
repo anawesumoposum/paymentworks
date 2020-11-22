@@ -9,8 +9,9 @@ function getRails() {
                     localStorage.setItem('rails', JSON.stringify(response.data));   //update cache
                 }
             } else {
+                $("#train_table tbody tr").remove();    //clear table, probably unnecessary but doesn't hurt
                 loadTrainTable(response.data);       //load table
-                localStorage.setItem('rails', JSON.stringify(response.data));       //update cache
+                localStorage.setItem('rails', JSON.stringify(response.data));   //update cache
             }
         }, 
         error: function(xhr, status, err) { //something went horribly wrong!
@@ -29,10 +30,23 @@ function reqStops(arg) {
     $.ajax({
         url: "https://api-v3.mbta.com/stops?include=route&filter[route]=" + param,
         success: function(response){
+            if(localStorage.getItem(param)) { //if there's stuff in storage
+                if( JSON.parse( localStorage.getItem(param) ) != response.data ) {    // if cache is outdated
+                    localStorage.setItem(param, JSON.stringify(response.data));     //update cache
+                }
+            } else {
+                localStorage.setItem(param, JSON.stringify(response.data));     //update cache
+            }
+
             $("#stops_table tbody tr").remove();    //clear table
-            loadStopsTable(response.data);
+            loadStopsTable(response.data);          //always reload the table for new rail selection
+            
         },
         error: function(xhr, status, err) { //something went horribly wrong!
+            $("#stops_table tbody tr").remove();    //clear table
+            if(localStorage.getItem(param)) { //if there's stuff in storage
+                loadStopsTable( JSON.parse( localStorage.getItem(param) ) );   //load from cache if you can
+            }
             console.log(status);
             alert("Something went wrong with the request. Is your wifi on?");
             if(err) console.log(err);
