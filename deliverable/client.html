@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="jquery-3.5.1.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="client.css">
+  <title>API Client</title>
+
+</head>
+
+<body>
+  <div class="container">
+
+    <div>
+      <h1>MBTA Client Site</h1>
+    </div>
+
+    <div id="wrapper">
+      Welcome to my site! Click the button below to load in the most updated MBTA subway lines.
+      If you've already clicked the button, the last results will be cached in your browser! Don't be 
+      surprised if they're still there on the next page load!
+    </div>
+
+    <div id="wrapper">
+      To get the stops associated with a rail, you can either click a row in the table or type it into the form below!
+    </div>
+
+    <div id="wrapper">
+      <button id="test-btn" class="btn btn-secondary" type="button">Update Subway Lines</button>
+    </div>
+
+    <div id="wrapper">
+        <table id="train_table">
+            <thead id="train_table_header">
+                <th>ID</th>
+                <th>Name</th>
+            </thead>
+            <tbody id="train_table_body">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="selected_route"></div>
+
+    <div>
+      <table id="stops_table">
+        <thead id="stops_header">
+          <th>Name</th>
+          <th>Address</th>
+        </thead>
+        <tbody id="stops_body">
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  
+
+  <script src="client.js"></script>
+</body>
+</html>
